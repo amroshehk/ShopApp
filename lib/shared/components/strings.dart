@@ -1,0 +1,3 @@
+
+
+String appName = "News App";
