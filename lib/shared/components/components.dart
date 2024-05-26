@@ -56,5 +56,11 @@ Widget defaultTextFormField(
       style:  Theme.of(context).textTheme.bodyMedium,
     );
 
-void pushTo(context, Widget screen) =>
+void navigateTo(context, Widget screen) =>
     Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
+
+void navigateToAndFinish(context, Widget screen) =>
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => screen),
+    (route) {
+      return false;
+    },);
