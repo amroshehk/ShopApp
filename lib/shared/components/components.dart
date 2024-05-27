@@ -17,14 +17,25 @@ Widget defaultButton({
       child: MaterialButton(
         onPressed: function,
         child: Text(
-          "$title",
+          "$title".toUpperCase(),
           style: TextStyle(
-            fontSize: 20.0,
+            fontSize: 14.0,
             color: Colors.white,
+
           ),
+
+
         ),
       ),
     );
+
+Widget defaultTextButton({
+  required String title,
+  required VoidCallback function,
+}) =>
+    TextButton(onPressed: function, child: Text('$title'.toUpperCase()
+    ,style: TextStyle(fontSize: 14.0, ),));
+
 
 Widget defaultTextFormField(
     {required TextEditingController controller,

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:shop_app/modules/shopping_screen.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../models/BoardingModel.dart';
+import 'login/shop_login_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});
@@ -29,9 +29,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          TextButton(onPressed: () {
-            navigateToAndFinish(context, ShoppingScreen());
-          }, child: Text('SKIP'))
+          defaultTextButton(function: () {
+            navigateToAndFinish(context, ShopLoginScreen());
+          },title:  'SKIP')
         ],
       ),
       body:Column(
@@ -79,7 +79,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 const Spacer(),
                 FloatingActionButton(onPressed: () {
                   if(isLast){
-                    navigateToAndFinish(context, ShoppingScreen());
+                    navigateToAndFinish(context, ShopLoginScreen());
                     return;
                   }
                   pageController.nextPage(duration: Duration( milliseconds: 250), curve: Curves.bounceInOut);
