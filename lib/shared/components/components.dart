@@ -13,7 +13,7 @@ Widget defaultButton({
       width: double.infinity,
       decoration: BoxDecoration(
           color: color, borderRadius: BorderRadius.circular(radius)),
-      height: 46,
+      height: 50,
       child: MaterialButton(
         onPressed: function,
         child: Text(

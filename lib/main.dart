@@ -1,9 +1,14 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/shared/cubit_observer.dart';
+import 'package:shop_app/shared/network/remote/dio_helper.dart';
 import 'package:shop_app/shared/styles/themes.dart';
 
 import 'modules/on_boarding_screen.dart';
 
 void main() {
+  DioHelper.init();
+  Bloc.observer = AppBlocObserver();
   runApp(const MyApp());
 }
 
