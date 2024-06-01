@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shop_app/modules/login/cubit.dart';
 import 'package:shop_app/modules/login/states.dart';
 import 'package:shop_app/modules/register/shop_register_screen.dart';
@@ -146,8 +147,29 @@ class ShopLoginScreen extends StatelessWidget {
             );
           },
           listener: (context, state) {
-            if(state is ShopLoginErrorState){
-              errorMessage = state.error;
+            if(state is ShopLoginSuccessState){
+              var status = state.loginModel?.status;
+              if(status == true) {
+                Fluttertoast.showToast(
+                    msg: state.loginModel!.message.toString(),
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+              } else {
+                Fluttertoast.showToast(
+                    msg: state.loginModel!.message.toString(),
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+              }
             }
           },
         ),
