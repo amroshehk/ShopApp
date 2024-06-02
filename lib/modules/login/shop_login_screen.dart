@@ -3,12 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_app/layouts/shop/ShopLayout.dart';
 import 'package:shop_app/modules/login/cubit.dart';
 import 'package:shop_app/modules/login/states.dart';
 import 'package:shop_app/modules/register/shop_register_screen.dart';
 import 'package:shop_app/shared/components/components.dart';
 import 'package:shop_app/shared/styles/colors.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../shared/components/constants.dart';
+import '../../shared/shared_preferences.dart';
 
 class ShopLoginScreen extends StatelessWidget {
   ShopLoginScreen({super.key});
@@ -150,25 +154,15 @@ class ShopLoginScreen extends StatelessWidget {
             if(state is ShopLoginSuccessState){
               var status = state.loginModel?.status;
               if(status == true) {
-                Fluttertoast.showToast(
-                    msg: state.loginModel!.message.toString(),
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 16.0
-                );
+                CacheHelper.setData(key: USER_TOKEN, value: state.loginModel?.data?.token).then((value) {
+                  if(value==true){
+                    navigateToAndFinish(context, const ShopLayout());
+                  }
+                });
+
+                showToast(message: state.loginModel!.message.toString(),state: ToastStates.SUCCESS);
               } else {
-                Fluttertoast.showToast(
-                    msg: state.loginModel!.message.toString(),
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.BOTTOM,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0
-                );
+                showToast(message: state.loginModel!.message.toString(),state: ToastStates.ERROR);
               }
             }
           },
@@ -176,4 +170,6 @@ class ShopLoginScreen extends StatelessWidget {
       ),
     );
   }
+
+
 }

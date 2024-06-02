@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 Widget defaultButton({
@@ -75,3 +76,28 @@ void navigateToAndFinish(context, Widget screen) =>
     (route) {
       return false;
     },);
+
+
+void showToast({required String message, required ToastStates state}) {
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: chooseToastColor(state),
+      textColor: Colors.white,
+      fontSize: 16.0
+  );
+}
+
+Color chooseToastColor(ToastStates state) {
+  switch(state){
+    case ToastStates.SUCCESS:return Colors.green;
+    case ToastStates.ERROR:return Colors.red;
+    case ToastStates.WARNING:return Colors.orange;
+  }
+}
+
+enum ToastStates {
+  SUCCESS,ERROR,WARNING
+}
