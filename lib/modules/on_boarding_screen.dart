@@ -5,6 +5,8 @@ import 'package:shop_app/shared/components/components.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../models/BoardingModel.dart';
+import '../shared/components/constants.dart';
+import '../shared/shared_preferences.dart';
 import 'login/shop_login_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -30,7 +32,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       appBar: AppBar(
         actions: [
           defaultTextButton(function: () {
-            navigateToAndFinish(context, ShopLoginScreen());
+            submit(context);
           },title:  'SKIP')
         ],
       ),
@@ -79,7 +81,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 const Spacer(),
                 FloatingActionButton(onPressed: () {
                   if(isLast){
-                    navigateToAndFinish(context, ShopLoginScreen());
+                    submit(context);
                     return;
                   }
                   pageController.nextPage(duration: Duration( milliseconds: 250), curve: Curves.bounceInOut);
@@ -91,6 +93,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ],
       ),
     );
+  }
+
+  void submit(BuildContext context) {
+    CacheHelper.setData(key: IS_ON_BPARDING_NEEDED, value: true).then((value) {
+      if (value == true) {
+        navigateToAndFinish(context, ShopLoginScreen());
+      }
+    });
   }
 
   Widget buildBoardingItem(BoardingModel boarding) => Container(
