@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
   }
 
   void submit(BuildContext context) {
-    CacheHelper.clearData(key: USER_TOKEN)?.then((value) {
+    CacheHelper.removeData(key: USER_TOKEN)?.then((value) {
       if (value == true) {
         navigateToAndFinish(context, ShopLoginScreen());
       }
