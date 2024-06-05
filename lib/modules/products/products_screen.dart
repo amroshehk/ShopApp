@@ -19,8 +19,10 @@ class ProductsScreen extends StatelessWidget {
           ShopCubit cubit = ShopCubit.get(context);
           return ConditionalBuilder(
             condition: cubit.homeModel != null,
-            builder: (context) => productBuilder(cubit.homeModel?.data?.banners),
-            fallback: (context) => const Center(child: CircularProgressIndicator()),
+            builder: (context) =>
+                productBuilder(cubit.homeModel?.data?.banners),
+            fallback: (context) =>
+                const Center(child: CircularProgressIndicator()),
           );
         },
         listener: (BuildContext context, ShopStates state) {},
@@ -28,28 +30,32 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
- Widget productBuilder(List<BannerModel>? banners) {
+  Widget productBuilder(List<BannerModel>? banners) {
     return Column(
       children: [
         CarouselSlider(
-          options: CarouselOptions(height: 250.0
-          , initialPage: 0,
-          enableInfiniteScroll: true,
-          autoPlay: true,
-          viewportFraction: 1.0,
-          autoPlayInterval: Duration(seconds: 3),
-          autoPlayAnimationDuration: Duration(seconds: 1),
-          autoPlayCurve: Curves.fastOutSlowIn,
+          options: CarouselOptions(
+            height: 250.0,
+            initialPage: 0,
+            enableInfiniteScroll: true,
+            autoPlay: true,
+            viewportFraction: 1.0,
+            autoPlayInterval: Duration(seconds: 3),
+            autoPlayAnimationDuration: Duration(seconds: 1),
+            autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
             enlargeFactor: 0.3,
-            scrollDirection: Axis.horizontal,),
+            scrollDirection: Axis.horizontal,
+          ),
           items: banners?.map((banner) {
-           return Image(image: NetworkImage(
-             '${banner.image}'
-           ),width: double.infinity,fit: BoxFit.cover,);
+            return Image(
+              image: NetworkImage('${banner.image}'),
+              width: double.infinity,
+              fit: BoxFit.cover,
+            );
           }).toList(),
         )
       ],
     );
- }
+  }
 }
