@@ -11,14 +11,18 @@ class DioHelper {
       BaseOptions(
         baseUrl: baseUrl,
         receiveDataWhenStatusError: true,
-        headers: {
-          'Content-Type': 'application/json',
-        }
       )
     );
   }
 
-  static Future<Response> getData({required path , required Map<String, dynamic> queryParameters }) async {
+  static Future<Response> getData({required path , Map<String, dynamic>? queryParameters,
+    String lang ='en',
+    String? token,}) async {
+    dio.options.headers =  {
+      'Content-Type': 'application/json',
+      'lang':lang,
+      'Authorization':token
+    };
     return await dio.get(path ,queryParameters:queryParameters);
   }
 
@@ -30,17 +34,11 @@ class DioHelper {
 
   }) async {
     dio.options.headers =  {
+      'Content-Type': 'application/json',
       'lang':lang,
       'Authorization':token
     };
     return await dio.post(path ,queryParameters:queryParameters, data: data);
-  }
-
-  static Future<Response> getArticlesByCategoryData(category,isEnglish) async {
-    return
-        await getData(path: "", queryParameters: {
-        }
-        );
   }
 
 }

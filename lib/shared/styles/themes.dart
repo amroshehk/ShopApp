@@ -37,7 +37,7 @@ ThemeData darkTheme() => ThemeData(
     appBarTheme: AppBarTheme(
       elevation: 0.0,
       titleSpacing: 20.0,
-      backgroundColor: HexColor('222831'),
+      backgroundColor: Colors.black12,
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: HexColor("222831"),
           statusBarIconBrightness: Brightness.light),

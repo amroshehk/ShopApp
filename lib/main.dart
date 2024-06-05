@@ -16,6 +16,7 @@ Future<void> main() async {
   DioHelper.init();
   Bloc.observer = AppBlocObserver();
   Widget widget;
+  token = CacheHelper.getData(key: USER_TOKEN);
   if(CacheHelper.getData(key: IS_ON_BPARDING_NEEDED) != null){
     if (CacheHelper.getData(key: USER_TOKEN) == null) {
       widget = ShopLoginScreen();
@@ -25,7 +26,7 @@ Future<void> main() async {
   } else {
     widget = OnBoardingScreen();
   }
-  CacheHelper.getData(key: USER_TOKEN);
+
   runApp(MyApp(widget));
 }
 
