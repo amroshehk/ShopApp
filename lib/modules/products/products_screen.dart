@@ -8,6 +8,7 @@ import 'package:shop_app/models/home/home_model.dart';
 
 import '../../layouts/shop/cubit.dart';
 import '../../layouts/shop/states.dart';
+import '../../models/categories/categories_model.dart';
 import '../../shared/styles/colors.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class ProductsScreen extends StatelessWidget {
           ShopCubit cubit = ShopCubit.get(context);
           return ConditionalBuilder(
             condition: cubit.homeModel != null,
-            builder: (context) => productBuilder(cubit.homeModel!, context),
+            builder: (context) => productBuilder(cubit.homeModel!, cubit.categoriesModel!,context),
             fallback: (context) =>
                 const Center(child: CircularProgressIndicator()),
           );
@@ -31,7 +32,7 @@ class ProductsScreen extends StatelessWidget {
     );
   }
 
-  Widget productBuilder(HomeModel homeModel, BuildContext context) {
+  Widget productBuilder(HomeModel homeModel,CategoriesModel categoriesModel, BuildContext context) {
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
@@ -58,16 +59,61 @@ class ProductsScreen extends StatelessWidget {
               );
             }).toList(),
           ),
-          SizedBox(height: 10.0),
+          SizedBox(
+            height: 10.0,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Categories',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  height: 100.0,
+                  child: ListView.separated(
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) =>
+                        buildCategoryItem(categoriesModel.data!.data[index]),
+                    separatorBuilder: (context, index) => SizedBox(
+                      width: 10.0,
+                    ),
+                    itemCount: categoriesModel.data!.data.length,
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Text(
+                  'New Products',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Container(
               color: Colors.grey[300],
-              child: productBuilderGrid(homeModel.data!.products, context))
+              child: productGrid(homeModel.data!.products, context))
         ],
       ),
     );
   }
 
-  Widget productBuilderGrid(List<ProductModel> products, BuildContext context) {
+  Widget productGrid(List<ProductModel> products, BuildContext context) {
     return GridView.count(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -76,10 +122,10 @@ class ProductsScreen extends StatelessWidget {
         crossAxisSpacing: 1.0,
         childAspectRatio: 1 / 1.58,
         children: List.generate(products.length,
-            (index) => buildGridProduct(products[index], context)));
+            (index) => buildProductItem(products[index], context)));
   }
 
-  Widget buildGridProduct(ProductModel model, context) => Container(
+  Widget buildProductItem(ProductModel model, context) => Container(
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,4 +210,34 @@ class ProductsScreen extends StatelessWidget {
           ],
         ),
       );
+
+
+  Widget buildCategoryItem(DataModel model) => Stack(
+    alignment: AlignmentDirectional.bottomCenter,
+    children: [
+      Image(
+        image: NetworkImage(model.image.toString()),
+        height: 100.0,
+        width: 100.0,
+        fit: BoxFit.cover,
+      ),
+      Container(
+        color: Colors.black.withOpacity(
+          .8,
+        ),
+        width: 100.0,
+        child: Text(
+          model.name.toString(),
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15
+          ),
+        ),
+      ),
+    ],
+  );
+
 }

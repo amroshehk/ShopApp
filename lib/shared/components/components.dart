@@ -78,6 +78,17 @@ void navigateToAndFinish(context, Widget screen) =>
     },);
 
 
+Widget myDivider() => Padding(
+  padding: const EdgeInsetsDirectional.only(
+    start: 20.0,
+  ),
+  child: Container(
+    width: double.infinity,
+    height: 1.0,
+    color: Colors.grey[300],
+  ),
+);
+
 void showToast({required String message, required ToastStates state}) {
   Fluttertoast.showToast(
       msg: message,
