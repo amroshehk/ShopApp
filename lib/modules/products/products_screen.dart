@@ -9,6 +9,7 @@ import 'package:shop_app/models/home/home_model.dart';
 import '../../layouts/shop/cubit.dart';
 import '../../layouts/shop/states.dart';
 import '../../models/categories/categories_model.dart';
+import '../../shared/components/components.dart';
 import '../../shared/styles/colors.dart';
 
 class ProductsScreen extends StatelessWidget {
@@ -27,7 +28,14 @@ class ProductsScreen extends StatelessWidget {
                 const Center(child: CircularProgressIndicator()),
           );
         },
-        listener: (BuildContext context, ShopStates state) {},
+        listener: (BuildContext context, ShopStates state) {
+
+          if(state is ShopSuccessChangeFavoritesState) {
+            if(state.changeFavoritesModel.status == false) {
+              showToast(message : state.changeFavoritesModel.message!, state: ToastStates.ERROR);
+            }
+          }
+        },
       ),
     );
   }
@@ -191,10 +199,12 @@ class ProductsScreen extends StatelessWidget {
                         ),
                       Spacer(),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ShopCubit.get(context).changeFavorites(model.id!);
+                        },
                         icon: CircleAvatar(
                           radius: 15.0,
-                          backgroundColor: defaultColor,
+                          backgroundColor: ShopCubit.get(context).favorites[model.id]! ? defaultColor : Colors.grey,
                           child: Icon(
                             Icons.favorite_border,
                             size: 14.0,
