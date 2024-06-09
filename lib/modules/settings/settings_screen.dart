@@ -95,6 +95,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   defaultButton(
                     function: () {
+                      print("defaultButton");
                       signOut(context);
                     },
                     title: 'Logout',

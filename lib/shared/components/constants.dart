@@ -2,6 +2,7 @@
 
 import '../../modules/login/shop_login_screen.dart';
 import '../shared_preferences.dart';
+import 'components.dart';
 
 String baseUrl = "https://student.valuxapps.com/api/";
 
@@ -18,15 +19,12 @@ void signOut(context)
   {
     if (value)
     {
-      navigateAndFinish(
+      navigateToAndFinish(
         context,
         ShopLoginScreen(),
       );
     }
   });
-}
-
-void navigateAndFinish(context, shopLoginScreen) {
 }
 
 void printFullText(String text) {
