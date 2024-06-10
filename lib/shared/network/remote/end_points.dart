@@ -4,3 +4,4 @@ String CATEGORIES = "categories";
 String FAVORITES = "favorites";
 String PROFILE = "profile";
 String REGISTER = "register";
+String UPDATE_PROFILE = "update-profile";
