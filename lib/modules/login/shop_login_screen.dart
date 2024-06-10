@@ -156,6 +156,7 @@ class ShopLoginScreen extends StatelessWidget {
               if(status == true) {
                 CacheHelper.setData(key: USER_TOKEN, value: state.loginModel?.data?.token).then((value) {
                   if(value==true){
+                    token = state.loginModel!.data!.token!;
                     navigateToAndFinish(context, const ShopLayout());
                   }
                 });
