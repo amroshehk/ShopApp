@@ -34,8 +34,8 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children:
                 [
-                  // if(state is ShopLoadingUpdateUserState)
-                  //   LinearProgressIndicator(),
+                  if(state is ShopLoadingUpdateUserState)
+                    LinearProgressIndicator(),
                   SizedBox(
                     height: 20.0,
                   ),
@@ -90,11 +90,26 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     height: 20.0,
                   ),
+                  defaultButton(
+                    function: ()
+                    {
+                      if(formKey.currentState!.validate())
+                      {
+                        ShopCubit.get(context).updateUserData(
+                          name: nameController.text,
+                          phone: phoneController.text,
+                          email: emailController.text,
+                        );
+                      }
+                    },
+                   title: 'update',
+                  ),
                   SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
                     function: () {
+                      print("defaultButton");
                       signOut(context);
                     },
                     title: 'Logout',

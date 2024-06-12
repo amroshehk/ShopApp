@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../components/constants.dart';
 
@@ -39,6 +40,28 @@ class DioHelper {
       'Authorization':token
     };
     return await dio.post(path ,queryParameters:queryParameters, data: data);
+  }
+
+  static Future<Response> putData({
+    required String path,
+    Map<String, dynamic>? queryParameters,
+    required Map<String, dynamic> data,
+    String lang = 'en',
+    String? token,
+  }) async
+  {
+    dio.options.headers =
+    {
+      'lang':lang,
+      'Authorization': token??'',
+      'Content-Type': 'application/json',
+    };
+
+    return dio.put(
+      path,
+      queryParameters: queryParameters,
+      data: data,
+    );
   }
 
 }

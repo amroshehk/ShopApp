@@ -52,7 +52,8 @@ Widget defaultTextFormField(
       required FormFieldValidator validator,
       GestureTapCallback? onTab,
       ValueChanged<String>? onChanged,
-      required BuildContext context
+      required BuildContext context,
+      ValueChanged<String>? onFieldSubmitted
 }
 ) =>
     TextFormField(
@@ -69,6 +70,7 @@ Widget defaultTextFormField(
       readOnly: isReadOnly,
       onChanged: onChanged ,
       style:  Theme.of(context).textTheme.bodyMedium,
+        onFieldSubmitted:onFieldSubmitted
     );
 
 void navigateTo(context, Widget screen) =>
@@ -198,7 +200,7 @@ Widget buildProductItem(
                         icon: CircleAvatar(
                           radius: 15.0,
                           backgroundColor:
-                          ShopCubit.get(context).favorites[model.id]!
+                          ShopCubit.get(context).favorites[model.id]!=null
                               ? defaultColor
                               : Colors.grey,
                           child: Icon(
