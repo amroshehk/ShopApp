@@ -25,7 +25,7 @@ class ShopLayout extends StatelessWidget {
               title: Text('Salla'),
               actions: [
                 IconButton(onPressed: () {
-                  navigateTo(context, const SearchScreen());
+                  navigateTo(context, SearchScreen());
                 }, icon: Icon(Icons.search))
               ],
             ),
