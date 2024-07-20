@@ -7,6 +7,7 @@ import '../../layouts/shop/cubit.dart';
 import '../../layouts/shop/states.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
+import '../../shared/styles/colors.dart';
 
 class SettingsScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
@@ -32,88 +33,84 @@ class SettingsScreen extends StatelessWidget {
             child: Form(
               key: formKey,
               child: Column(
-                children:
-                [
-                  if(state is ShopLoadingUpdateUserState)
-                    LinearProgressIndicator(),
-                  SizedBox(
+                children: [
+                  if (state is ShopLoadingUpdateUserState)
+                    const LinearProgressIndicator(),
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultTextFormField(
-                    controller: nameController,
-                    type: TextInputType.name,
+                      controller: nameController,
+                      type: TextInputType.name,
                       validator: (value) {
-                      if (value.isEmpty) {
-                        return 'name must not be empty';
-                      }
+                        if (value.isEmpty) {
+                          return 'name must not be empty';
+                        }
 
-                      return null;
-                    },
-                    labelText: 'Name',
-                    prefixIcon: Icon(Icons.person),
-                      context: context
-                  ),
-                  SizedBox(
+                        return null;
+                      },
+                      labelText: 'Name',
+                      prefixIcon: Icon(Icons.person),
+                      context: context),
+                  const SizedBox(
                     height: 20.0,
                   ),
                   defaultTextFormField(
-                    controller: emailController,
-                    type: TextInputType.emailAddress,
+                      controller: emailController,
+                      type: TextInputType.emailAddress,
                       validator: (value) {
-                      if (value.isEmpty) {
-                        return 'email must not be empty';
-                      }
+                        if (value.isEmpty) {
+                          return 'email must not be empty';
+                        }
 
-                      return null;
-                    },
-                    labelText: 'Email Address',
-                    prefixIcon: Icon(Icons.email),
-                      context: context
-                  ),
+                        return null;
+                      },
+                      labelText: 'Email Address',
+                      prefixIcon: Icon(Icons.email),
+                      context: context),
                   SizedBox(
                     height: 20.0,
                   ),
                   defaultTextFormField(
-                    controller: phoneController,
-                    type: TextInputType.phone,
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'phone must not be empty';
-                      }
+                      controller: phoneController,
+                      type: TextInputType.phone,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'phone must not be empty';
+                        }
 
-                      return null;
-                    },
-                    labelText: 'Phone',
-                    prefixIcon: Icon(Icons.phone),
-                    context: context
-                  ),
+                        return null;
+                      },
+                      labelText: 'Phone',
+                      prefixIcon: Icon(Icons.phone),
+                      context: context),
                   SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
-                    function: ()
-                    {
-                      if(formKey.currentState!.validate())
-                      {
-                        ShopCubit.get(context).updateUserData(
-                          name: nameController.text,
-                          phone: phoneController.text,
-                          email: emailController.text,
-                        );
-                      }
-                    },
-                   title: 'update',
-                  ),
+                      function: () {
+                        if (formKey.currentState!.validate()) {
+                          ShopCubit.get(context).updateUserData(
+                            name: nameController.text,
+                            phone: phoneController.text,
+                            email: emailController.text,
+                          );
+                        }
+                      },
+                      title: 'update',
+                      color: defaultColor,
+                      radius: 40.0),
                   SizedBox(
                     height: 20.0,
                   ),
                   defaultButton(
-                    function: () {
-                      print("defaultButton");
-                      signOut(context);
-                    },
-                    title: 'Logout',
-                  ),
+                      function: () {
+                        print("defaultButton");
+                        signOut(context);
+                      },
+                      title: 'Logout',
+                      color: defaultColor,
+                      radius: 40.0),
                 ],
               ),
             ),
