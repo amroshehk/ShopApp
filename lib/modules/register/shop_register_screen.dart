@@ -8,6 +8,7 @@ import '../../layouts/shop/ShopLayout.dart';
 import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
 import '../../shared/shared_preferences.dart';
+import '../../shared/styles/colors.dart';
 import 'cubit.dart';
 
 class ShopRegisterScreen extends StatelessWidget {
@@ -148,18 +149,19 @@ class ShopRegisterScreen extends StatelessWidget {
                         ConditionalBuilder(
                           condition: state is! ShopRegisterLoadingState,
                           builder: (context) => defaultButton(
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                ShopRegisterCubit.get(context).userRegister(
-                                  name: nameController.text,
-                                  email: emailController.text,
-                                  password: passwordController.text,
-                                  phone: phoneController.text,
-                                );
-                              }
-                            },
-                            title: 'register',
-                          ),
+                              function: () {
+                                if (formKey.currentState!.validate()) {
+                                  ShopRegisterCubit.get(context).userRegister(
+                                    name: nameController.text,
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    phone: phoneController.text,
+                                  );
+                                }
+                              },
+                              title: 'register',
+                              color: defaultColor,
+                              radius: 40.0),
                           fallback: (context) =>
                               Center(child: CircularProgressIndicator()),
                         ),

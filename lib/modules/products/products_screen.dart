@@ -235,6 +235,7 @@ class ProductsScreen extends StatelessWidget {
         color: Colors.black.withOpacity(
           .8,
         ),
+        padding: EdgeInsets.all(4.0),
         width: 100.0,
         child: Text(
           model.name.toString(),
@@ -243,7 +244,7 @@ class ProductsScreen extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             color: Colors.white,
-            fontSize: 15
+            fontSize: 12
           ),
         ),
       ),
